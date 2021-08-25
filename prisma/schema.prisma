@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  firstName    String
+  lastName     String?
+  userName     String    @unique
+  email        String    @unique
+  password     String
+  bio          String?
+  profilePhoto String?
+  dips         String[]
+  comments     Comment[]
+  messages     Message[]
+  recipes      Recipe[]
+  stars        Star[]
+  rooms        Room[]
+  subscribers  User[]    @relation("Subscribtion", references: [id])
+  subscribings User[]    @relation("Subscribtion", references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Recipe {
+  id         String    @id @default(uuid())
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  dibsCount  Int       @default(0)
+  title      String    @unique
+  caption    String?
+  thumbnails String[]
+  servings   Int
+  difficulty Int
+  time       Int
+  type       String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Comments   Comment[]
+  stars      Star[]
+  toDos      ToDo[]
+  hashtags   Hashtag[]
+}
+
+model ToDo {
+  id       String  @id @default(uuid())
+  recipe   Recipe  @relation(fields: [recipeId], references: [id])
+  recipeId String
+  file     String?
+  title    String
+  caption  String?
+  isTimer  Boolean
+  time     Int?
+  step     Int
+}
+
+model Hashtag {
+  id        String   @id @default(uuid())
+  hashtag   String   @unique
+  recipes   Recipe[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Star {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  String
+  star      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([recipeId, userId], name: "Star.recipeId_userId_unique")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id        String    @id @default(uuid())
+  users     User[]
+  messages  Message[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  room      Room     @relation(fields: [roomId], references: [id])
+  roomId    String
+  content   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

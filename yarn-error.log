@@ -1,0 +1,81 @@
+Arguments: 
+  D:\Install\nodejs\node.exe D:\Install\Yam\bin\yarn.js
+
+PATH: 
+  ;;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32\compiler;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Users\reopa\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;D:\Install\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\opencv\build\x64\vc15\bin;C:\Users\reopa\AppData\Local\Programs\Python\Python37;C:\Users\reopa\AppData\Local\Programs\Python\Python37\Scripts;D:\Install\Yam\bin\;C:\Users\reopa\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Java\jre1.8.0_144;D:\Install\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Install\anaconda3;D:\Install\anaconda3\Library\mingw-w64\bin;D:\Install\anaconda3\Library\usr\bin;D:\Install\anaconda3\Library\bin;D:\Install\anaconda3\Scripts;D:\codings\python\Scripts\;D:\codings\python\;C:\Users\reopa\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\reopa\AppData\Local\Programs\Python\Python37\;C:\Program Files\Java\jdk1.8.0_181\bin;C:\Users\reopa\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\reopa\AppData\Local\Microsoft\WindowsApps;C:\Users\reopa\AppData\Local\Yarn\bin;C:\Users\reopa\AppData\Local\Microsoft\WindowsApps;C:\Users\reopa\AppData\Local\GitHubDesktop\bin;C:\Users\reopa\AppData\Roaming\npm;D:\Install\heroku\bin;D:\Install\PyCharm Community Edition 2021.1.3\bin;
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  15.12.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\reopa\Desktop\CODING\Pocipe\Pocipe-backend\node_modules\.cache\@babel\register'
+
+npm manifest: 
+  {
+    "name": "Pocipe-backend",
+    "version": "1.0.0",
+    "description": "GraphQL + Prisma + Apollo Server",
+    "main": "index.js",
+    "scripts": {
+      "preinstall": "npx npm-force-resolutions",
+      "dev": "nodemon --exec babel-node src/server",
+      "migrate": "npx prisma migrate dev",
+      "migrate-reset": "npx prisma migrate reset",
+      "studio": "npx prisma studio",
+      "build": "babel src --out-dir build",
+      "start": "node build/server"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/OhWonJu/pocipe-backend.git"
+    },
+    "keywords": [],
+    "author": "Zoody",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/OhWonJu/pocipe-backend/issues"
+    },
+    "homepage": "https://github.com/OhWonJu/pocipe-backend#readme",
+    "dependencies": {
+      "@prisma/client": "^2.28.0",
+      "@zvs001/s3-utils": "^0.1.0",
+      "apollo-server": "^3.1.1",
+      "apollo-server-core": "^3.1.2",
+      "apollo-server-express": "^3.1.1",
+      "aws-sdk": "^2.972.0",
+      "bcrypt": "^5.0.1",
+      "dotenv": "^10.0.0",
+      "express": "^4.17.1",
+      "express-graphql": "^0.12.0",
+      "graphql": "^15.5.1",
+      "graphql-tools": "^7.0.2",
+      "graphql-upload": "^11.0.0",
+      "jsonwebtoken": "^8.5.1",
+      "morgan": "^1.10.0",
+      "nodemailer": "^6.6.3",
+      "nodemailer-mailgun-transport": "^2.1.3",
+      "subscriptions-transport-ws": "^0.9.19"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.14.8",
+      "@babel/node": "^7.14.9",
+      "@babel/preset-env": "^7.14.9",
+      "nodemon": "^2.0.12",
+      "prisma": "^2.28.0"
+    },
+    "resolutions": {
+      "fs-capacitor": "^6.2.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
