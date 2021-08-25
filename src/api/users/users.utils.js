@@ -32,7 +32,7 @@ export const getUser = async token => {
 //   }
 // }
 
-export const portectedResolver = gqlResolver => (root, args, context, info) => {
+export const protectedResolver = gqlResolver => (root, args, context, info) => {
   if (!context.loggedInUser) {
     const query = info.operation.operation === "query";
     if (query) {

@@ -2,7 +2,7 @@ import { createWriteStream } from "fs"; // nodejs 라이브러리 파일 pip관�
 import bcrypt from "bcrypt";
 
 import client from "../../../client";
-import { portectedResolver } from "../users.utils";
+import { protectedResolver } from "../users.utils";
 import { deleteInS3, uploadToS3 } from "../../shared/shared.utils";
 
 const resolver = async (
@@ -83,7 +83,7 @@ const resolver = async (
       ...(userName && { userName: userName.toLowerCase() }),
       email,
       bio,
-      ...(uglyPassword && { password: uglyPassword }), // ES6 문법.  ...(조건 && return Obj)
+      ...(uglyPassword && { password: uglyPassword }),
       ...(profilePhotoUrl && { profilePhoto: profilePhotoUrl }),
     },
   });
@@ -101,6 +101,6 @@ const resolver = async (
 
 export default {
   Mutation: {
-    editProfile: portectedResolver(resolver),
+    editProfile: protectedResolver(resolver),
   },
 };

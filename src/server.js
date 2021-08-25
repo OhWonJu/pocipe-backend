@@ -13,6 +13,7 @@ import { getUser } from "./api/users/users.utils";
 
 const startExpressApolloServer = async () => {
   const PORT = process.env.PORT;
+
   const apollo = new ApolloServer({
     typeDefs,
     resolvers,
@@ -41,8 +42,6 @@ const startExpressApolloServer = async () => {
     //   onConnect: async ({ token }) => {
     //     // param == http header
     //     // if (!token) {
-    //     //   // 모든 subscriptions가 private인 경우...
-    //     //   // plat은 all private이 아닌데..
     //     //   throw new Error("You are not authenticated.");
     //     // }
     //     if (token) {
@@ -60,12 +59,13 @@ const startExpressApolloServer = async () => {
     logger("tiny"),
     graphqlUploadExpress("/graphql", { maxFileSize: 10000000, maxFiles: 10 })
   );
-  //          URL                      폴더
+  //          URL                      폴더  - 해당 폴더에 지정된 URL을 통해 접근하도록 함
   app.use("/uploads", express.static("uploads"));
   const httpServer = createServer(app);
   //apollo.installSubscriptionHandlers(httpServer);
 
   await apollo.start();
+  
   apollo.applyMiddleware({ app, path: "/" });
 
   const subscriptionServer = SubscriptionServer.create(
