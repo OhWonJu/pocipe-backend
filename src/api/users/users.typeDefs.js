@@ -10,8 +10,8 @@ export default gql`
     # password: String
     bio: String
     profilePhoto: String
-    #recipes: [Recipe!]
-    #dips: [String!]
+    recipes: [Recipe!]
+    dips: [String!]
     # stars: [Star!]
     subscribers: [User!]
     subscribings: [User!]

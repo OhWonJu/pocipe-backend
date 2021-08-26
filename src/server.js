@@ -7,8 +7,9 @@ import { execute, subscribe } from "graphql";
 import { graphqlUploadExpress } from "graphql-upload";
 import { SubscriptionServer } from "subscriptions-transport-ws";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 
-import { typeDefs, resolvers } from "./schema"
+import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./api/users/users.utils";
 
 const startExpressApolloServer = async () => {
@@ -19,8 +20,17 @@ const startExpressApolloServer = async () => {
     resolvers,
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground(),
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              subscriptionServer.close();
+            },
+          };
+        },
+      },
     ],
-    playground: true,
+    //playground: true,
     introspection: true,
     uploads: false,
     context: async ({ req, connection }) => {
@@ -65,15 +75,27 @@ const startExpressApolloServer = async () => {
   //apollo.installSubscriptionHandlers(httpServer);
 
   await apollo.start();
-  
+
   apollo.applyMiddleware({ app, path: "/" });
+
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
 
   const subscriptionServer = SubscriptionServer.create(
     {
-      typeDefs,
-      resolvers,
+      schema,
       execute,
       subscribe,
+      async onConnect(connectionParams, webSocket, context) {
+        console.log("connectionParams: ", connectionParams);
+        console.log("webSoket: ", webSocket);
+        console.log("context: ", context);
+        if (connectionParams.token) {
+          return {
+            loggedInUser: await getUser(connectionParams.token),
+          };
+          throw new Error("Missing auth token!");
+        }
+      },
       onConnect: async ({ token }) => {
         if (token) {
           return {

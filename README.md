@@ -8,7 +8,6 @@ GraphQL + Prisma + Apollo Server
 [🔴] Login with password
 [🔴] Login with google, kakao
 [🔴] Edit Profile
-[🔴] Change Profile Photo (Image upload)
 [🔴] Subscribe User
 [🔴] Unsubscribe User
 [🔴] See Subscribers and See Subcribings
