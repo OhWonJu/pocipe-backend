@@ -11,7 +11,7 @@ export default gql`
     thumbNail: [String]
     servings: Int!
     difficulty: Int!
-    time: Int!
+    cookingTime: Int!
     type: String
     comments: [Comment!]
     commentsCount: Int!
@@ -43,8 +43,5 @@ export default gql`
   }
   type Comment{
     id: Int!
-  }
-  type ToDo {
-    id: String!
   }
 `;

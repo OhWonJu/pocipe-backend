@@ -29,24 +29,24 @@ model User {
 }
 
 model Recipe {
-  id         String    @id @default(uuid())
-  user       User      @relation(fields: [userId], references: [id])
-  userId     String
-  chefId     String
-  dibsCount  Int       @default(0)
-  title      String    @unique
-  caption    String?
-  thumbNails String[]
-  servings   Int       @default(1)
-  difficulty Int       @default(1)
-  time       Int       @default(0)
-  comments   Comment[]
-  stars      Star[]
-  totalStar  Float     @default(0)
-  toDos      ToDo[]
-  hashtags   Hashtag[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  chefId      String
+  dibsCount   Int       @default(0)
+  title       String    @unique @default("")
+  caption     String?
+  thumbNails  String[]
+  servings    Int       @default(1)
+  difficulty  Int       @default(1)
+  cookingTime Int       @default(0)
+  comments    Comment[]
+  stars       Star[]
+  totalStar   Float     @default(0)
+  toDos       ToDo[]
+  hashtags    Hashtag[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model ToDo {
