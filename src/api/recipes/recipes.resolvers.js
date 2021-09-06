@@ -3,7 +3,7 @@ import client from "../../client";
 export default {
   Recipe: {
     hashtags: ({ id }) =>
-      client.hashtag.findMany({
+      client.hashTag.findMany({
         where: {
           recipes: {
             some: {
@@ -40,9 +40,24 @@ export default {
     },
     toDosCount: ({ id }) => client.toDo.count({ where: { recipeId: id } }),
   },
-  Hashtag: {
+  Kategorie: {
     recipes: ({ id }, { lastId }) => {
-      return client.hashtag
+      return client.kategorie
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .recipes({
+          take: 10,
+          skip: lastId ? 1 : 0,
+          ...(lastId && { cursor: { id: lastId } }),
+        });
+    },
+  },
+  HashTag: {
+    recipes: ({ id }, { lastId }) => {
+      return client.hashTag
         .findUnique({
           where: {
             id,

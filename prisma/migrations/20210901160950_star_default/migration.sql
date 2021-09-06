@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Star" ALTER COLUMN "star" SET DEFAULT 0;

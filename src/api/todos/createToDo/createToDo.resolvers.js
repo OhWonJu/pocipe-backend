@@ -4,21 +4,16 @@ import { protectedResolver } from "../../users/users.utils";
 
 const resolver = async (
   _,
-  { toDoId, recipeId, file, title, caption, isTimer, time, step },
+  { recipeId, file, title, caption, isTimer, time, step },
   { loggedInUser }
 ) => {
-  if (!loggedInUser) {
-    return {
-      ok: false,
-      error: "You need authetication.",
-    };
-  }
-  const recipeExist= await client.recipe.findUnique({
+  const recipeExist = await client.recipe.findUnique({
     where: {
       id: recipeId,
     },
     select: {
       id: true,
+      toDos: true,
     },
   });
   if (!recipeExist) {
@@ -35,9 +30,23 @@ const resolver = async (
       `users/${loggedInUser.id}/recipes/todos/${recipeId}`
     );
   }
+  const titleExist = recipeExist.toDos.filter(todo => todo.title === title);
+  if (titleExist.length !== 0) {
+    return {
+      ok: false,
+      error: "Same title in recipe.",
+    };
+  }
+  const stepExist = recipeExist.toDos.filter(todo => todo.step === step);
+  if (stepExist.length !== 0) {
+    return {
+      ok: false,
+      error: "Same step in recipe.",
+    };
+  }
   const newToDo = await client.toDo.create({
     data: {
-      id: toDoId,
+      id: `${recipeId}-${title}`,
       recipe: {
         connect: {
           id: recipeId,

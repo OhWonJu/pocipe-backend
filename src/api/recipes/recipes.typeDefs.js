@@ -8,11 +8,10 @@ export default gql`
     disCount: Int!
     title: String!
     caption: String
-    thumbNail: [String]
+    thumbNails: [String]
     servings: Int!
     difficulty: Int!
     cookingTime: Int!
-    type: String
     comments: [Comment!]
     commentsCount: Int!
     stars: [Star!]
@@ -21,12 +20,18 @@ export default gql`
     starAverage: Float!
     toDos: [ToDo!]
     toDosCount: Int!
-    hashtags: [Hashtag!]
+    kategories: [Kategorie!]
+    hashtags: [HashTag!]
     isMine: Boolean!
     createdAt: String!
     updatedAt: String!
   }
-  type Hashtag {
+  type Kategorie {
+    kategorieId: String!
+    type: String!
+    recipes(lastId: String): [Recipe!]
+  }
+  type HashTag {
     id: String!
     hashtag: String!
     recipes(lastId: String): [Recipe!]
@@ -41,7 +46,7 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
-  type Comment{
+  type Comment {
     id: Int!
   }
 `;

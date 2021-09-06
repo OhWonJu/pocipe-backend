@@ -16,12 +16,12 @@ model User {
   password     String
   bio          String?
   profilePhoto String?
-  dips         String[]
-  comments     Comment[]
-  messages     Message[]
   recipes      Recipe[]
+  dips         String[]
   stars        Star[]
+  comments     Comment[]
   rooms        Room[]
+  messages     Message[]
   subscribers  User[]    @relation("Subscribtion", references: [id])
   subscribings User[]    @relation("Subscribtion", references: [id])
   createdAt    DateTime  @default(now())
@@ -29,24 +29,25 @@ model User {
 }
 
 model Recipe {
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id])
   userId      String
   chefId      String
-  dibsCount   Int       @default(0)
-  title       String    @unique @default("")
+  dibsCount   Int         @default(0)
+  title       String      @unique @default("")
   caption     String?
   thumbNails  String[]
-  servings    Int       @default(1)
-  difficulty  Int       @default(1)
-  cookingTime Int       @default(0)
+  servings    Int         @default(1)
+  difficulty  Int         @default(1)
+  cookingTime Int         @default(0)
   comments    Comment[]
   stars       Star[]
-  totalStar   Float     @default(0)
+  totalStar   Float       @default(0)
   toDos       ToDo[]
-  hashtags    Hashtag[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  kategories  Kategorie[]
+  hashtags    HashTag[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model ToDo {
@@ -61,7 +62,13 @@ model ToDo {
   step     Int
 }
 
-model Hashtag {
+model Kategorie {
+  kategorieId String   @id
+  type        String
+  recipes     Recipe[]
+}
+
+model HashTag {
   id        String   @id @default(uuid())
   hashtag   String   @unique
   recipes   Recipe[]
@@ -75,7 +82,7 @@ model Star {
   userId    String
   recipe    Recipe   @relation(fields: [recipeId], references: [id])
   recipeId  String
-  star      Float
+  star      Float    @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
