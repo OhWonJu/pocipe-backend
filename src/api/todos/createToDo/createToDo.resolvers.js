@@ -22,12 +22,13 @@ const resolver = async (
       error: "Recipe does not exist.",
     };
   }
+  const toDoId = `${recipeId}-${title}`;
   let fileURL = null;
   if (file) {
     fileURL = await uploadToS3(
       file,
       loggedInUser.id,
-      `users/${loggedInUser.id}/recipes/todos/${recipeId}`
+      `users/${loggedInUser.id}/recipes/${recipeId}/${toDoId}`
     );
   }
   const titleExist = recipeExist.toDos.filter(todo => todo.title === title);
@@ -46,7 +47,7 @@ const resolver = async (
   }
   const newToDo = await client.toDo.create({
     data: {
-      id: `${recipeId}-${title}`,
+      id: toDoId,
       recipe: {
         connect: {
           id: recipeId,

@@ -14,7 +14,8 @@ const resolver = async (
     difficulty,
     cookingTime,
     kategorieIds,
-  }
+  },
+  { loggedInUser }
 ) => {
   const recipeExist = await client.recipe.findUnique({
     where: {
@@ -47,9 +48,9 @@ const resolver = async (
         const thumbNailURL = await uploadToS3(
           thumNail,
           recipeExist.id,
-          `recipes/${recipeExist.id}/thumbnails`
+          `users/${loggedInUser.id}/recipes/${recipeExist.id}/thumbnails`
         );
-        return thumbNailURL
+        return thumbNailURL;
       })
     );
   }
