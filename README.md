@@ -3,23 +3,24 @@ GraphQL + Prisma + Apollo Server
 
 ## Modules
 ### User
-[🔴] Create Account
-[🔴] See Profile
-[🔴] Login with password
+[🟢] Create Account
+[🟢] See Profile
+[🟢] Login with password
 [🔴] Login with google, kakao
-[🔴] Edit Profile
-[🔴] Subscribe User
-[🔴] Unsubscribe User
-[🔴] See Subscribers and See Subcribings
-[🔴] Search Users
+[🟢] Edit Profile
+[🟢] Subscribe User
+[🟢] Unsubscribe User
+[🟢] See Subscribers and See Subcribings
+[🟢] Search Users
 
 ### Recipe
-[🔴] Create Recipe (Parse Hashtag)
-[🔴] See Recipe
+[🟢] Create Recipe (Parse Hashtag)
+[🟢] See Recipe
 [🔴] Run Recipe with Auto-Run, (voice detect)
-[🔴] See Hashtags
+[🟢] See Hashtags
 [🔴] Search Recipe with keyword
-[🔴] Edit Recipe (own and collected)
+[🟢] Edit Recipe (own)
+[🔴] Edit Recipe (collected)
 [🔴] Share Recipe
 [🔴] Collect Recipe
 [🔴] See Recipe Stars
@@ -27,8 +28,7 @@ GraphQL + Prisma + Apollo Server
 [🔴] Delete Recipe
 
 ### ToDos
-[🔴] create ToDos
-[🔴] See ToDo
+[🟢] create ToDos
 [🔴] Edit Todo
 [🔴] Delete Todo
 

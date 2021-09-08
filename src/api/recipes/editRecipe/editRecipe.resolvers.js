@@ -17,10 +17,10 @@ const resolver = async (
   },
   { loggedInUser }
 ) => {
-  const recipeExist = await client.recipe.findUnique({
+  const recipeExist = await client.recipe.findFirst({
     where: {
       id,
-      userId: loggedInUser.id,
+      chefId: loggedInUser.id,
     },
     include: {
       hashtags: {
@@ -30,7 +30,11 @@ const resolver = async (
           recipes: true,
         },
       },
-      kategories: true,
+      kategories: {
+        select: {
+          kategorieId: true,
+        },
+      },
     },
   });
   if (!recipeExist) {
@@ -57,8 +61,10 @@ const resolver = async (
       })
     );
   }
-  console.log(thumbNailsURL);
   const oldKategories = recipeExist.kategories;
+  const newKategories = kategorieIds.map(kategorie => ({
+    kategorieId: kategorie,
+  }));
   const hashIds = recipeExist.hashtags.map(hash => ({
     id: hash.id,
   }));
@@ -67,7 +73,7 @@ const resolver = async (
       id,
     },
     data: {
-      ...title,
+      title,
       ...(caption && {
         caption: caption,
         hashtags: {
@@ -76,13 +82,13 @@ const resolver = async (
         },
       }),
       ...(thumbNails && { thumbNails: thumbNailsURL }),
-      ...servings,
-      ...difficulty,
-      ...cookingTime,
+      servings,
+      difficulty,
+      cookingTime,
       ...(kategorieIds && {
         kategories: {
           disconnect: oldKategories,
-          connect: kategorieIds,
+          connect: newKategories,
         },
       }),
     },
@@ -92,25 +98,25 @@ const resolver = async (
       const hashs = await Promise.all(
         hashIds.map(
           async hashId =>
-            await client.hashtag.findFirst({
+            await client.hashTag.findFirst({
               where: { id: hashId.id },
               select: {
-                groups: { select: { id: true } },
+                recipes: { select: { id: true } },
               },
             })
         )
       );
       // filter callback안에서 await을 사용하면, callback은 항상 promise를 반환합니다. promise는 항상 'truthy'
       // promise를 밖에서 해결..
-      const noGroups = hashIds.filter((hashId, index) => {
+      const noRecipes = hashIds.filter((hashId, index) => {
         const hash = hashs[index];
-        if (hash.groups.length === 0) {
+        if (hash.recipes.length === 0) {
           return hashId.id;
         } else {
           return null;
         }
       });
-      await client.hashtag.deleteMany({ where: { OR: noGroups } });
+      await client.hashTag.deleteMany({ where: { OR: noRecipes } });
     }
     return {
       ok: true,

@@ -3,7 +3,8 @@ import { gql } from "apollo-server-core";
 export default gql`
   type Recipe {
     id: String!
-    userId: String!
+    chef: User!
+    #userId: String!
     chefId: String!
     disCount: Int!
     title: String!
@@ -17,6 +18,7 @@ export default gql`
     stars: [Star!]
     totalStar: Float!
     givnStar: Boolean!
+    starsCount: Int!
     starAverage: Float!
     toDos: [ToDo!]
     toDosCount: Int!
@@ -30,6 +32,7 @@ export default gql`
     kategorieId: String!
     type: String!
     recipes(lastId: String): [Recipe!]
+    recipesCount: Int!
   }
   type HashTag {
     id: String!

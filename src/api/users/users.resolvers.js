@@ -48,9 +48,9 @@ export default {
       });
       return Boolean(exists);
     },
-    // recipes: ({ id }) =>
-    //   client.user
-    //     .findUnique({ where: { id } })
-    //     .recipes({ orderBy: { createdAt: "desc" } }),
+    recipes: ({ id }) =>
+      client.user
+        .findUnique({ where: { id } })
+        .recipes({ orderBy: { createdAt: "desc" } }),
   },
 };

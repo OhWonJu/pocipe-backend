@@ -30,8 +30,8 @@ model User {
 
 model Recipe {
   id          String      @id @default(uuid())
-  user        User        @relation(fields: [userId], references: [id])
   userId      String
+  chef        User        @relation(fields: [chefId], references: [id])
   chefId      String
   dibsCount   Int         @default(0)
   title       String      @unique @default("")
@@ -58,7 +58,7 @@ model ToDo {
   title    String
   caption  String?
   isTimer  Boolean
-  time     Int?
+  time     Int?    @default(0)
   step     Int
 }
 
@@ -86,7 +86,7 @@ model Star {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([recipeId, userId], name: "Star.recipeId_userId_unique")
+  @@unique([recipeId, userId])
 }
 
 model Comment {

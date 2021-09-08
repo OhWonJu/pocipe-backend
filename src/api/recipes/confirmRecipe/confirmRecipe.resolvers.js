@@ -71,7 +71,9 @@ const resolver = async (
       servings,
       difficulty,
       cookingTime,
-      kategories: kategorieIds,
+      kategories: {
+        connect: kategorieIds,
+      },
       ...(hashtagObjs.length > 0 && {
         hashtags: {
           connectOrCreate: hashtagObjs,

@@ -2,14 +2,10 @@ import client from "../../client";
 
 export default {
   Recipe: {
-    hashtags: ({ id }) =>
-      client.hashTag.findMany({
+    chef: ({ chefId }) =>
+      client.user.findUnique({
         where: {
-          recipes: {
-            some: {
-              id,
-            },
-          },
+          id: chefId,
         },
       }),
     isMine: ({ chefId }, _, { loggedInUser }) => {
@@ -21,8 +17,8 @@ export default {
     },
     commentsCount: ({ id }) =>
       client.comment.count({ where: { recipeId: id } }),
-    givnStar: ({ id }, _, { loggedInUser }) => {
-      const myStar = client.star.findFirst({
+    givnStar: async ({ id }, _, { loggedInUser }) => {
+      const myStar = await client.star.findFirst({
         where: {
           recipeId: id,
           userId: loggedInUser.id,
@@ -34,11 +30,36 @@ export default {
         return false;
       }
     },
-    starAverage: ({ id, totalStar }) => {
-      const stars = client.star.count({ where: { recipeId: id } });
-      return totalStar / stars;
+    starsCount: ({ id }) => client.star.count({ where: { recipeId: id } }),
+    starAverage: async ({ id, totalStar, starsCount }) => {
+      if (totalStar == 0) return 0;
+      return totalStar / starsCount;
     },
+    toDos: ({ id }) =>
+      client.recipe
+        .findUnique({ where: { id } })
+        .toDos({ orderBy: { step: "asc" } }),
     toDosCount: ({ id }) => client.toDo.count({ where: { recipeId: id } }),
+    kategories: ({ id }) =>
+      client.kategorie.findMany({
+        where: {
+          recipes: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
+    hashtags: ({ id }) =>
+      client.hashTag.findMany({
+        where: {
+          recipes: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
   },
   Kategorie: {
     recipes: ({ id }, { lastId }) => {
@@ -53,6 +74,17 @@ export default {
           skip: lastId ? 1 : 0,
           ...(lastId && { cursor: { id: lastId } }),
         });
+    },
+    recipesCount: ({ id }) => {
+      client.recipe.count({
+        where: {
+          kategories: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
     },
   },
   HashTag: {
