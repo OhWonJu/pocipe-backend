@@ -47,7 +47,7 @@ const resolver = async (
   if (thumbNails) {
     if (recipeExist.thumbNails) {
       await deleteDirInS3(
-        `https://pocipe-uploads.s3.ap-northeast-2.amazonaws.com/users/${loggedInUser.id}/recipes/${recipeExist.id}/thumbnails`
+        `https://pocipe-uploads.s3.ap-northeast-2.amazonaws.com/users/${loggedInUser.id}/recipes/${recipeExist.id}/thumbnails/`
       );
     }
     thumbNailsURL = await Promise.all(

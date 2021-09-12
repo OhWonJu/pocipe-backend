@@ -11,6 +11,11 @@ const resolver = async (
     where: {
       id,
     },
+    select: {
+      id: true,
+      file: true,
+      recipeId: true,
+    },
   });
   if (!todo) {
     return {
@@ -21,14 +26,12 @@ const resolver = async (
   let fileURL = null;
   if (file) {
     if (todo.file) {
-      await deleteInS3(
-        `https://pocipe-uploads.s3.ap-northeast-2.amazonaws.com/users/${loggedInUser.id}/recipes/${recipeId}/${toDoId}`
-      );
+      await deleteInS3(todo.file);
     }
     fileURL = await uploadToS3(
       file,
       todo.id,
-      `users/${loggedInUser.id}/recipes/${recipeId}/${toDoId}`
+      `users/${loggedInUser.id}/recipes/${todo.recipeId}/${todo.id}`
     );
   }
   const newTodo = await client.toDo.update({

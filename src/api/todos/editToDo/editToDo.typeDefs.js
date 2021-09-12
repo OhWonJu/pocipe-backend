@@ -4,7 +4,7 @@ export default gql`
   type Mutation {
     editToDo(
       id: String!
-      file: String
+      file: Upload
       title: String
       caption: String
       isTimer: Boolean!
