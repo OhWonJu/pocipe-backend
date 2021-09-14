@@ -30,10 +30,13 @@ export default {
         return false;
       }
     },
-    starsCount: ({ id }) => client.star.count({ where: { recipeId: id } }),
-    starAverage: async ({ id, totalStar, starsCount }) => {
-      if (totalStar == 0) return 0;
-      return totalStar / starsCount;
+    starsCount: async ({ id }) =>
+      await client.star.count({ where: { recipeId: id } }),
+    starAverage: async ({ id, totalStar }) => {
+      const stars = await client.star.count({ where: { recipeId: id } });
+      if (totalStar <= 0) return 0;
+      let avg = totalStar / stars;
+      return avg.toFixed(1)
     },
     toDos: ({ id }) =>
       client.recipe

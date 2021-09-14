@@ -62,9 +62,12 @@ const resolver = async (
     );
   }
   const oldKategories = recipeExist.kategories;
-  const newKategories = kategorieIds.map(kategorie => ({
-    kategorieId: kategorie,
-  }));
+  let newKategories = null;
+  if (kategorieIds) {
+    newKategories = kategorieIds.map(kategorie => ({
+      kategorieId: kategorie,
+    }));
+  }
   const hashIds = recipeExist.hashtags.map(hash => ({
     id: hash.id,
   }));
