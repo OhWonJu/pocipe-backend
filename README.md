@@ -29,8 +29,8 @@ GraphQL + Prisma + Apollo Server
 
 ### ToDos
 [🟢] create ToDos
-[🔴] Edit Todo
-[🔴] Delete Todo
+[🟢] Edit Todo
+[🟢] Delete Todo
 
 ### Comments
 [🔴] Comment on Recipe

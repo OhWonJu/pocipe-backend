@@ -12,6 +12,7 @@ export default gql`
     profilePhoto: String
     recipes: [Recipe!]
     dips: [String!]
+    mecipes: [Mecipe!]
     # stars: [Star!]
     subscribers: [User!]
     subscribings: [User!]

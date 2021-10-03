@@ -11,4 +11,15 @@ export default gql`
     time: Int
     step: Int
   }
+
+  type MeDo {
+    id: String!
+    mecipeId: String!
+    file: String
+    title: String!
+    caption: String
+    isTimer: Boolean!
+    time: Int
+    step: Int
+  }
 `;

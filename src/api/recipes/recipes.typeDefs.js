@@ -52,4 +52,17 @@ export default gql`
   type Comment {
     id: Int!
   }
+
+  type Mecipe {
+    id: String!
+    originalId: String!
+    userId: String!
+    chef: User!
+    chefId: String!
+    memo: String
+    servings: Int!
+    difficulty: Int!
+    cookingTime: Int!
+    meDos: [MeDo]
+  }
 `;

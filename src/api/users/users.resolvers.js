@@ -52,5 +52,9 @@ export default {
       client.user
         .findUnique({ where: { id } })
         .recipes({ orderBy: { createdAt: "desc" } }),
+    mecipes: ({ id }) =>
+      client.user
+        .findUnique({ where: id })
+        .mecipes({ orderBy: { updatedAt: "desc" } }),
   },
 };

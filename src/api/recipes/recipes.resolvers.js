@@ -36,7 +36,7 @@ export default {
       const stars = await client.star.count({ where: { recipeId: id } });
       if (totalStar <= 0) return 0;
       let avg = totalStar / stars;
-      return avg.toFixed(1)
+      return avg.toFixed(1);
     },
     toDos: ({ id }) =>
       client.recipe
@@ -129,5 +129,17 @@ export default {
           thumbnails: true,
         },
       }),
+  },
+  Mecipe: {
+    chef: ({ chefId }) =>
+      client.user.findUnique({
+        where: {
+          id: chefId,
+        },
+      }),
+    meDos: ({ id }) =>
+      client.mecipe
+        .findUnique({ where: { id } })
+        .meDos({ orderBy: { step: "asc" } }),
   },
 };
