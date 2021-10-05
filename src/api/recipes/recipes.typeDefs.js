@@ -56,6 +56,7 @@ export default gql`
   type Mecipe {
     id: String!
     originalId: String!
+    user: User!
     userId: String!
     chef: User!
     chefId: String!
@@ -63,6 +64,6 @@ export default gql`
     servings: Int!
     difficulty: Int!
     cookingTime: Int!
-    meDos: [MeDo]
+    meDos: [MeDo!]
   }
 `;

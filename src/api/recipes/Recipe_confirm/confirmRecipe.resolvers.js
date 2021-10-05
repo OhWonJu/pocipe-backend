@@ -56,6 +56,12 @@ const resolver = async (
   }
   console.log("ASDs");
   console.log("Way", thumbNailsURL);
+  let newKategories;
+  if (kategorieIds) {
+    newKategories = kategorieIds.map(kategorie => ({
+      kategorieId: kategorie,
+    }));
+  }
   let hashtagObjs = [];
   if (caption) {
     hashtagObjs = processHashtags(caption);
@@ -71,9 +77,11 @@ const resolver = async (
       servings,
       difficulty,
       cookingTime,
-      kategories: {
-        connect: kategorieIds,
-      },
+      ...(kategorieIds && {
+        kategories: {
+          connect: newKategories,
+        },
+      }),
       ...(hashtagObjs.length > 0 && {
         hashtags: {
           connectOrCreate: hashtagObjs,

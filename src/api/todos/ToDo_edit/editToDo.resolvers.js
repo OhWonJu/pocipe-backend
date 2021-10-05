@@ -34,6 +34,14 @@ const resolver = async (
       `users/${loggedInUser.id}/recipes/${todo.recipeId}/${todo.id}`
     );
   }
+  if (isTimer) {
+    if (!time) {
+      return {
+        ok: false,
+        error: "You need time argument.",
+      };
+    }
+  }
   const newTodo = await client.toDo.update({
     where: {
       id,
@@ -54,7 +62,7 @@ const resolver = async (
   } else {
     return {
       ok: false,
-      error: "ToDo update failed.",
+      error: "Failed todo update.",
     };
   }
 };

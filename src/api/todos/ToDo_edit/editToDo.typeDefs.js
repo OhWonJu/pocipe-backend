@@ -7,9 +7,9 @@ export default gql`
       file: Upload
       title: String
       caption: String
-      isTimer: Boolean!
-      time: String
-      step: String
+      isTimer: Boolean
+      time: Int
+      step: Int
     ): MutationResponse!
   }
 `;

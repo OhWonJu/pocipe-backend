@@ -68,7 +68,7 @@ const resolver = async (
   } else {
     return {
       ok: false,
-      error: "Failed create new todso.",
+      error: "Failed create new todo.",
     };
   }
 };

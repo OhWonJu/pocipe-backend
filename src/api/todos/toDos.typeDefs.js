@@ -15,9 +15,8 @@ export default gql`
   type MeDo {
     id: String!
     mecipeId: String!
-    file: String
-    title: String!
-    caption: String
+    originalId: String!
+    memo: String
     isTimer: Boolean!
     time: Int
     step: Int

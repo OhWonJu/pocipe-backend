@@ -4,12 +4,12 @@ import { protectedResolver } from "../../users/users.utils";
 const resolver = async (_, __, { loggedInUser }) => {
   const newRecipe = await client.recipe.create({
     data: {
-      user: {
+      chef: {
         connect: {
           id: loggedInUser.id,
         },
       },
-      chefId: loggedInUser.id,
+      userId: loggedInUser.id,
     },
   });
   if (newRecipe) {
