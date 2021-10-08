@@ -129,6 +129,16 @@ export default {
           thumbnails: true,
         },
       }),
+    user: ({ userId }) =>
+      client.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          userName: true,
+          profilePhoto: true,
+        },
+      }),
   },
   Mecipe: {
     chef: ({ chefId }) =>

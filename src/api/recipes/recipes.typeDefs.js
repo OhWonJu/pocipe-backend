@@ -45,6 +45,7 @@ export default gql`
   type Star {
     id: Int!
     recipe: Recipe!
+    user: User!
     star: Float!
     createdAt: String!
     updatedAt: String!

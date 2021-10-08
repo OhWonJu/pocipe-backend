@@ -20,12 +20,12 @@ GraphQL + Prisma + Apollo Server
 [🟢] See Hashtags
 [🔴] Search Recipe with keyword
 [🟢] Edit Recipe (own)
-[🔴] Edit Recipe (collected)
+[🟢] Edit Recipe (collected)
 [🔴] Share Recipe
-[🔴] Collect Recipe
-[🔴] See Recipe Stars
+[🟢] Collect Recipe
+[🟢] See Recipe Stars
 [🔴] See Recipe Comment
-[🔴] Delete Recipe
+[🟢] Delete Recipe
 
 ### ToDos
 [🟢] create ToDos
@@ -33,9 +33,9 @@ GraphQL + Prisma + Apollo Server
 [🟢] Delete Todo
 
 ### Comments
-[🔴] Comment on Recipe
-[🔴] Delete Comment
-[🔴] Edit Comment
+[🟢] Comment on Recipe
+[🟢] Delete Comment
+[🟢] Edit Comment
 
 ### Direact Messages
 [🔴] See Rooms
