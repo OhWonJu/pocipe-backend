@@ -8,11 +8,11 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
+  id           String      @id @default(uuid())
   firstName    String
   lastName     String?
-  userName     String    @unique
-  email        String    @unique
+  userName     String      @unique
+  email        String      @unique
   password     String
   bio          String?
   profilePhoto String?
@@ -21,12 +21,13 @@ model User {
   mecipes      Mecipe[]
   stars        Star[]
   comments     Comment[]
+  recomments   Recomment[]
   rooms        Room[]
   messages     Message[]
-  subscribers  User[]    @relation("Subscribtion", references: [id])
-  subscribings User[]    @relation("Subscribtion", references: [id])
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  subscribers  User[]      @relation("Subscribtion", references: [id])
+  subscribings User[]      @relation("Subscribtion", references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 model Recipe {
@@ -77,14 +78,14 @@ model Mecipe {
 }
 
 model MeDo {
-  id           String  @id @default(uuid())
-  mecipe       Mecipe  @relation(fields: [mecipeId], references: [id])
-  mecipeId     String
-  originalId   String
-  memo         String?
-  isTimer      Boolean
-  time         Int?    @default(0)
-  step         Int
+  id         String  @id @default(uuid())
+  mecipe     Mecipe  @relation(fields: [mecipeId], references: [id])
+  mecipeId   String
+  originalId String
+  memo       String?
+  isTimer    Boolean
+  time       Int?    @default(0)
+  step       Int
 }
 
 model Kategorie {
@@ -115,11 +116,23 @@ model Star {
 }
 
 model Comment {
+  id         Int         @id @default(autoincrement())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String
+  recipe     Recipe      @relation(fields: [recipeId], references: [id])
+  recipeId   String
+  content    String
+  recomments Recomment[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Recomment {
   id        Int      @id @default(autoincrement())
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  recipe    Recipe   @relation(fields: [recipeId], references: [id])
-  recipeId  String
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

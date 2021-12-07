@@ -126,7 +126,7 @@ export default {
           id: true,
           title: true,
           caption: true,
-          thumbnails: true,
+          thumbNails: true,
         },
       }),
     user: ({ userId }) =>

@@ -1,12 +1,15 @@
 # Plat Backend
+
 GraphQL + Prisma + Apollo Server
 
 ## Modules
+
 ### User
+
 [🟢] Create Account
 [🟢] See Profile
 [🟢] Login with password
-[🔴] Login with google, kakao
+//[🔴] Login with google, kakao
 [🟢] Edit Profile
 [🟢] Subscribe User
 [🟢] Unsubscribe User
@@ -14,30 +17,37 @@ GraphQL + Prisma + Apollo Server
 [🟢] Search Users
 
 ### Recipe
+
 [🟢] Create Recipe (Parse Hashtag)
 [🟢] See Recipe
-[🔴] Run Recipe with Auto-Run, (voice detect)
+//[🔴] Run Recipe with Auto-Run, (voice detect)
 [🟢] See Hashtags
-[🔴] Search Recipe with keyword
+[🟢] Search Recipe with keyword
 [🟢] Edit Recipe (own)
 [🟢] Edit Recipe (collected)
-[🔴] Share Recipe
+//[🔴] Share Recipe
 [🟢] Collect Recipe
 [🟢] See Recipe Stars
-[🔴] See Recipe Comment
+[🟢] See Recipe Comment
 [🟢] Delete Recipe
 
 ### ToDos
+
 [🟢] create ToDos
 [🟢] Edit Todo
 [🟢] Delete Todo
 
 ### Comments
+
 [🟢] Comment on Recipe
 [🟢] Delete Comment
 [🟢] Edit Comment
+[🟢] Recomment on Comment
+[🟢] Delete Recomment
+[🟢] Edit Recomment
 
 ### Direact Messages
+
 [🔴] See Rooms
 [🔴] Send Message and createRoom
 [🔴] See Room
@@ -47,4 +57,3 @@ GraphQL + Prisma + Apollo Server
 ### Shop
 
 ### Items
-

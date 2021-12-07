@@ -1,4 +1,6 @@
 import client from "../../../client";
+import { NEW_RECIPE } from "../../../constents";
+import pubsub from "../../../pubsub";
 import { deleteDirInS3, uploadToS3 } from "../../shared/shared.utils";
 import { protectedResolver } from "../../users/users.utils";
 import { processHashtags } from "../recipes.utils";
@@ -54,8 +56,6 @@ const resolver = async (
       })
     );
   }
-  console.log("ASDs");
-  console.log("Way", thumbNailsURL);
   let newKategories;
   if (kategorieIds) {
     newKategories = kategorieIds.map(kategorie => ({
@@ -90,6 +90,7 @@ const resolver = async (
     },
   });
   if (newRecipe.id) {
+    pubsub.publish(NEW_RECIPE, { recipeUpdates: { ...newRecipe } });
     return {
       ok: true,
     };

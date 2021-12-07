@@ -1,4 +1,6 @@
 import client from "../../../client";
+import { NEW_STAR } from "../../../constents";
+import pubsub from "../../../pubsub";
 import { protectedResolver } from "../../users/users.utils";
 
 const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
@@ -8,6 +10,7 @@ const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
     },
     select: {
       id: true,
+      chefId: true,
       totalStar: true,
     },
   });
@@ -45,7 +48,7 @@ const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
       rate: -1,
     };
   } else {
-    await client.star.create({
+    const newStar = await client.star.create({
       data: {
         user: {
           connect: {
@@ -60,6 +63,9 @@ const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
         star: star,
       },
     });
+    if (recipe.chefId !== loggedInUser.id) {
+      pubsub.publish(NEW_STAR, { starsUpdates: { ...newStar } });
+    }
     await client.recipe.update({
       where: {
         id,

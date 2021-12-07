@@ -1,4 +1,6 @@
 import client from "../../../client";
+import { NEW_COMMENT } from "../../../constents";
+import pubsub from "../../../pubsub";
 import { protectedResolver } from "../../users/users.utils";
 
 const resolver = async (_, { recipeId, content }, { loggedInUser }) => {
@@ -16,7 +18,7 @@ const resolver = async (_, { recipeId, content }, { loggedInUser }) => {
       error: "Recipe not found.",
     };
   }
-  await client.comment.create({
+  const newComment = await client.comment.create({
     data: {
       content,
       recipe: {
@@ -31,9 +33,17 @@ const resolver = async (_, { recipeId, content }, { loggedInUser }) => {
       },
     },
   });
-  return {
-    ok: true,
-  };
+  pubsub.publish(NEW_COMMENT, { commentUpdates: { ...newComment } });
+  if (newComment) {
+    return {
+      ok: true,
+    };
+  } else {
+    return {
+      ok: false,
+      error: "create comment is failed.",
+    };
+  }
 };
 
 export default {

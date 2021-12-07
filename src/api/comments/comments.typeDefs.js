@@ -10,4 +10,14 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
+
+  type Recomment {
+    id: Int!
+    user: User!
+    comment: Comment!
+    content: String!
+    isMine: String!
+    createdAt: String!
+    updatedAt: String!
+  }
 `;
