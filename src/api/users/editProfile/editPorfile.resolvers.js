@@ -12,7 +12,9 @@ const resolver = async (
     lastName,
     userName,
     email,
+    phoneNumber,
     password: newPassword,
+    snsKey,
     bio,
     profilePhoto,
   },
@@ -40,6 +42,10 @@ const resolver = async (
   let uglyPassword = null;
   if (newPassword) {
     uglyPassword = await bcrypt.hash(newPassword, 10);
+  }
+  let uglySNSKey = null;
+  if (snsKey) {
+    uglySNSKey = await bcrypt.hash(uglyPassword, 10);
   }
   if (userName) {
     const existingUserName = await client.user.findFirst({
@@ -82,8 +88,10 @@ const resolver = async (
       lastName,
       ...(userName && { userName: userName.toLowerCase() }),
       email,
+      phoneNumber,
       bio,
       ...(uglyPassword && { password: uglyPassword }),
+      ...(uglySNSKey && { snsKey: uglySNSKey }),
       ...(profilePhotoUrl && { profilePhoto: profilePhotoUrl }),
     },
   });

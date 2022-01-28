@@ -9,11 +9,13 @@ datasource db {
 
 model User {
   id           String      @id @default(uuid())
-  firstName    String
+  firstName    String?
   lastName     String?
   userName     String      @unique
   email        String      @unique
+  phoneNumber  String?
   password     String
+  snsKey       String?     
   bio          String?
   profilePhoto String?
   recipes      Recipe[]

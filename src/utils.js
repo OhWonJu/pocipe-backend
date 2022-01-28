@@ -15,13 +15,13 @@ const sendMail = content => {
   return nodemailerMailgun.sendMail(content);
 };
 
-export const sendSecretMail = (email, code) => {
+export const sendAccountMail = (email, code) => {
   const content = {
     from: "pocipe_zoody@pocipe.com",
     to: email,
-    subject: "Verification Code For Pocipe Account🍴",
-    html: `Hello! Your Verification Code is "<strong>${code}</strong>". <br/>
-            Copy Paste on the APP to Verification Your Pocipe Account!`,
+    subject: "Pocipe 이메일 인증 코드입니다!🍴",
+    html: `안녕하세요! 이메일 인증 코드는 "<strong>${code}</strong>" 입니다. <br/>
+            해당 코드를 복사하여 Pocipe 이메일 인증란에 붙여넣어주세요!`,
   };
   return sendMail(content);
 };

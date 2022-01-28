@@ -15,6 +15,17 @@ import { getUser } from "./api/users/users.utils";
 const startExpressApolloServer = async () => {
   const PORT = process.env.PORT;
 
+  const app = express();
+  //  httpServer < app - apollo < express
+  app.use(
+    logger("tiny"),
+    graphqlUploadExpress("/graphql", { maxFileSize: 10000000, maxFiles: 10 })
+  );
+  //          URL                      폴더  - 해당 폴더에 지정된 URL을 통해 접근하도록 함
+  app.use("/uploads", express.static("uploads"));
+  const httpServer = createServer(app);
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
+
   const apollo = new ApolloServer({
     typeDefs,
     resolvers,
@@ -62,23 +73,9 @@ const startExpressApolloServer = async () => {
     //   },
     // },
   });
-
-  const app = express();
-  //  httpServer < app - apollo < express
-  app.use(
-    logger("tiny"),
-    graphqlUploadExpress("/graphql", { maxFileSize: 10000000, maxFiles: 10 })
-  );
-  //          URL                      폴더  - 해당 폴더에 지정된 URL을 통해 접근하도록 함
-  app.use("/uploads", express.static("uploads"));
-  const httpServer = createServer(app);
-  //apollo.installSubscriptionHandlers(httpServer);
-
   await apollo.start();
 
   apollo.applyMiddleware({ app, path: "/" });
-
-  const schema = makeExecutableSchema({ typeDefs, resolvers });
 
   const subscriptionServer = SubscriptionServer.create(
     {

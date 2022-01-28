@@ -4,7 +4,7 @@ import client from "../../../client";
 
 export default {
   Mutation: {
-    createAccount: async (_, { firstName, lastName, userName, email, password }) => {
+    createAccount: async (_, { firstName, lastName, userName, email, phoneNumber, password }) => {
       try {
         const existingUserName = await client.user.findFirst({
           where: {
@@ -36,6 +36,7 @@ export default {
           data: {
             userName: userName.toLowerCase(),
             email,
+            phoneNumber,
             firstName,
             lastName,
             // profilePhoto: "https://plat-uploads.s3.ap-northeast-2.amazonaws.com/default/user/default_user_profile.png"

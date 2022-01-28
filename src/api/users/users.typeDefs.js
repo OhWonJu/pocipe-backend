@@ -7,13 +7,14 @@ export default gql`
     lastName: String
     userName: String!
     email: String!
+    phoneNumber: String
     # password: String
     bio: String
     profilePhoto: String
     recipes: [Recipe!]
     dips: [String!]
     mecipes: [Mecipe!]
-    # stars: [Star!]
+    stars: [Star!]
     subscribers: [User!]
     subscribings: [User!]
     #point: Int!
