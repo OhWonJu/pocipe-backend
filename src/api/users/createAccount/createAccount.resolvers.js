@@ -30,7 +30,7 @@ export default {
           };
         }
         // hash password
-        const uglyPassword = await bcrypt.hash(password, 10);
+        const uglyPassword = await bcrypt.hash(password, 20);
 
         const newUser = await client.user.create({
           data: {

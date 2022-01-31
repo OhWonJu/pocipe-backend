@@ -41,11 +41,11 @@ const resolver = async (
   }
   let uglyPassword = null;
   if (newPassword) {
-    uglyPassword = await bcrypt.hash(newPassword, 10);
+    uglyPassword = await bcrypt.hash(newPassword, 20);
   }
   let uglySNSKey = null;
   if (snsKey) {
-    uglySNSKey = await bcrypt.hash(uglyPassword, 10);
+    uglySNSKey = await bcrypt.hash(snsKey, 20);
   }
   if (userName) {
     const existingUserName = await client.user.findFirst({
