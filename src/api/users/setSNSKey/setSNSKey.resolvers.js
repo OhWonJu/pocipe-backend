@@ -20,7 +20,7 @@ const resolver = async (_, { email, password, snsKey }) => {
       error: "Incorrect password",
     };
   }
-  const uglySNSKey = await bcrypt.hash(snsKey, 20);
+  const uglySNSKey = await bcrypt.hash(snsKey, 10);
   const updateSNSKey = await client.user.update({
     where: {
       email,
@@ -29,6 +29,7 @@ const resolver = async (_, { email, password, snsKey }) => {
       ...(uglySNSKey && { snsKey: uglySNSKey }),
     },
   });
+  console.log(updateSNSKey)
   if (updateSNSKey.id) {
     return {
       ok: true,

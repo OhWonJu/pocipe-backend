@@ -9,6 +9,7 @@ export default gql`
       email: String!
       phoneNumber: String
       password: String!
+      snsKey: String
     ): MutationResponse!
   }
 `;
