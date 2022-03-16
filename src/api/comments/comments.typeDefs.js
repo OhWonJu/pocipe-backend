@@ -7,6 +7,7 @@ export default gql`
     recipe: Recipe!
     content: String!
     isMine: Boolean!
+    recomments: [Recomment!]
     createdAt: String!
     updatedAt: String!
   }

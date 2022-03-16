@@ -18,6 +18,7 @@ export default {
     commentsCount: ({ id }) =>
       client.comment.count({ where: { recipeId: id } }),
     givnStar: async ({ id }, _, { loggedInUser }) => {
+      if (!loggedInUser) return false;
       const myStar = await client.star.findFirst({
         where: {
           recipeId: id,
@@ -53,6 +54,16 @@ export default {
           },
         },
       }),
+    ingredients: ({ id }) =>
+      client.ingredient.findMany({
+        where: {
+          recipes: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
     hashtags: ({ id }) =>
       client.hashTag.findMany({
         where: {
@@ -79,9 +90,35 @@ export default {
         });
     },
     recipesCount: ({ id }) => {
-      client.recipe.count({
+      return client.recipe.count({
         where: {
           kategories: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
+    },
+  },
+  Ingredient: {
+    recipes: ({ id }, { lastId }) => {
+      return client.ingredient
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .recipes({
+          take: 10,
+          skip: lastId ? 1 : 0,
+          ...(lastId && { cursor: { id: lastId } }),
+        });
+    },
+    recipesCount: ({ id }) => {
+      return client.recipe.count({
+        where: {
+          ingredients: {
             some: {
               id,
             },
@@ -105,7 +142,7 @@ export default {
         });
     },
     recipesCount: ({ id }) => {
-      client.recipe.count({
+      return client.recipe.count({
         where: {
           hashtags: {
             some: {

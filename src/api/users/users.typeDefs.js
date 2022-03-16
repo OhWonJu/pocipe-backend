@@ -15,6 +15,9 @@ export default gql`
     dips: [String!]
     mecipes: [Mecipe!]
     stars: [Star!]
+    totalStar: Float!
+    starCount: Int!
+    starAverage: Float!
     subscribers: [User!]
     subscribings: [User!]
     #point: Int!

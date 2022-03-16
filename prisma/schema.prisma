@@ -15,13 +15,15 @@ model User {
   email        String      @unique
   phoneNumber  String?
   password     String
-  snsKey       String?     
+  snsKey       String?
   bio          String?
   profilePhoto String?
   recipes      Recipe[]
   dips         String[]
   mecipes      Mecipe[]
   stars        Star[]
+  starCount    Int         @default(0)
+  totalStar    Float       @default(0)
   comments     Comment[]
   recomments   Recomment[]
   rooms        Room[]
@@ -33,25 +35,26 @@ model User {
 }
 
 model Recipe {
-  id          String      @id @default(uuid())
+  id          String       @id @default(uuid())
   userId      String
-  chef        User        @relation(fields: [chefId], references: [id])
+  chef        User         @relation(fields: [chefId], references: [id])
   chefId      String
-  dibsCount   Int         @default(0)
-  title       String      @unique @default("")
+  dipsCount   Int          @default(0)
+  title       String       @unique @default("")
   caption     String?
   thumbNails  String[]
-  servings    Int         @default(1)
-  difficulty  Int         @default(1)
-  cookingTime Int         @default(0)
+  servings    Int          @default(1)
+  difficulty  Int          @default(1)
+  cookingTime Int          @default(0)
   comments    Comment[]
   stars       Star[]
-  totalStar   Float       @default(0)
+  totalStar   Float        @default(0)
   toDos       ToDo[]
   kategories  Kategorie[]
+  ingredients Ingredient[]
   hashtags    HashTag[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model ToDo {
@@ -91,9 +94,15 @@ model MeDo {
 }
 
 model Kategorie {
-  kategorieId String   @id
-  type        String
-  recipes     Recipe[]
+  id        String   @id @default(cuid())
+  kategorie String   @unique
+  recipes   Recipe[]
+}
+
+model Ingredient {
+  id         String   @id @default(cuid())
+  ingredient String   @unique
+  recipes    Recipe[]
 }
 
 model HashTag {

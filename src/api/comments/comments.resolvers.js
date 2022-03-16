@@ -25,6 +25,12 @@ export default {
         return userId === loggedInUser.id;
       }
     },
+    recomments: ({ id }) =>
+      client.recomment.findMany({
+        where: {
+          commentId: id,
+        },
+      }),
   },
   Recomment: {
     user: ({ userId }) =>

@@ -4,9 +4,8 @@ export default gql`
   type Recipe {
     id: String!
     chef: User!
-    #userId: String!
     chefId: String!
-    disCount: Int!
+    dipsCount: Int!
     title: String!
     caption: String
     thumbNails: [String]
@@ -23,17 +22,25 @@ export default gql`
     toDos: [ToDo!]
     toDosCount: Int!
     kategories: [Kategorie!]
+    ingredients: [Ingredient!]
     hashtags: [HashTag!]
     isMine: Boolean!
     createdAt: String!
     updatedAt: String!
   }
   type Kategorie {
-    kategorieId: String!
-    type: String!
+    id: String!
+    kategorie: String!
     recipes(lastId: String): [Recipe!]
     recipesCount: Int!
   }
+  type Ingredient {
+    id: String!
+    ingredient: String!
+    recipes(lastId: String): [Recipe!]
+    recipesCount: Int!
+  }
+
   type HashTag {
     id: String!
     hashtag: String!

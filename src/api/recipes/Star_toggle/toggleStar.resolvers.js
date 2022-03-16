@@ -43,6 +43,19 @@ const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
     await client.star.delete({
       where: starWhere,
     });
+    await client.user.update({
+      where: {
+        id: recipe.chefId,
+      },
+      data: {
+        starCount: {
+          decrement: 1,
+        },
+        totalStar: {
+          decrement: starExist.star,
+        },
+      },
+    });
     return {
       ok: true,
       rate: -1,
@@ -71,6 +84,19 @@ const resolver = async (_, { id, star = 0 }, { loggedInUser }) => {
         id,
       },
       data: {
+        totalStar: {
+          increment: star,
+        },
+      },
+    });
+    await client.user.update({
+      where: {
+        id: recipe.chefId,
+      },
+      data: {
+        starCount: {
+          increment: 1,
+        },
         totalStar: {
           increment: star,
         },

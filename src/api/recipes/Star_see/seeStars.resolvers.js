@@ -15,14 +15,15 @@ export default {
               profilePhoto: true,
             },
           },
+          createdAt: true,
+        },
+        take: 30,
+        skip: lastId ? 1 : 0,
+        ...(lastId && { cursor: { id: lastId } }),
+        orderBy: {
+          createdAt: "desc",
         },
       });
-      // const r = stars.map(star => {
-      //   return {
-      //     star: star.star,
-      //     user: star.user,
-      //   };
-      // });
       return stars;
     },
   },

@@ -2,8 +2,11 @@ import client from "../../client";
 
 export default {
   User: {
-    // root -> request 된 Uset 모델의 field들을 반환핟한다
-    // 그중 id 필드
+    starAverage: async ({ id, starCount, totalStar }) => {
+      if (totalStar <= 0) return 0;
+      let avg = totalStar / starCount;
+      return avg.toFixed(1);
+    },
     subscribersCount: ({ id }) =>
       client.user.count({
         where: {

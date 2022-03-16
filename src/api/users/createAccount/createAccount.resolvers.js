@@ -34,7 +34,10 @@ export default {
         }
         // hash password
         const uglyPassword = await bcrypt.hash(password, 10);
-        const ugleSNSKey = await bcrypt.hash(snsKey, 10);
+        let ugleSNSKey = null;
+        if (snsKey) {
+          ugleSNSKey = await bcrypt.hash(snsKey, 10);
+        }
 
         const newUser = await client.user.create({
           data: {
@@ -43,9 +46,9 @@ export default {
             phoneNumber,
             firstName,
             lastName,
-            // profilePhoto: "https://plat-uploads.s3.ap-northeast-2.amazonaws.com/default/user/default_user_profile.png"
+            profilePhoto: "https://pocipe-uploads.s3.ap-northeast-2.amazonaws.com/default/user/default_user_profile.png",
             password: uglyPassword,
-            snsKey: ugleSNSKey,
+            ...(ugleSNSKey && { snsKey: ugleSNSKey }),
           },
         });
         if (newUser.id) {

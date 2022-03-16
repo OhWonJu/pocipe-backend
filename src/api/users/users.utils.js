@@ -40,7 +40,7 @@ export const protectedResolver = gqlResolver => (root, args, context, info) => {
     } else {
       return {
         ok: false,
-        error: "Please log in to perform this action.",
+        error: "Please sign in to perform this action.",
       };
     }
   }
