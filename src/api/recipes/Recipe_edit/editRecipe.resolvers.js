@@ -14,6 +14,7 @@ const resolver = async (
     difficulty,
     cookingTime,
     kategorieIds,
+    ingredientIds,
   },
   { loggedInUser }
 ) => {
@@ -32,7 +33,12 @@ const resolver = async (
       },
       kategories: {
         select: {
-          kategorieId: true,
+          id: true,
+        },
+      },
+      ingredients: {
+        select: {
+          id: true,
         },
       },
     },
@@ -62,12 +68,7 @@ const resolver = async (
     );
   }
   const oldKategories = recipeExist.kategories;
-  let newKategories = null;
-  if (kategorieIds) {
-    newKategories = kategorieIds.map(kategorie => ({
-      kategorieId: kategorie,
-    }));
-  }
+  const oldIngredients = recipeExist.ingredients;
   const hashIds = recipeExist.hashtags.map(hash => ({
     id: hash.id,
   }));
@@ -91,7 +92,13 @@ const resolver = async (
       ...(kategorieIds && {
         kategories: {
           disconnect: oldKategories,
-          connect: newKategories,
+          connect: kategorieIds,
+        },
+      }),
+      ...(ingredientIds && {
+        ingredients: {
+          disconnect: oldIngredients,
+          connect: ingredientIds,
         },
       }),
     },

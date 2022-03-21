@@ -11,6 +11,7 @@ export default gql`
       difficulty: Int
       cookingTime: Int
       kategorieIds: [String]
+      ingredientIds: [String]
     ): MutationResponse!
   }
 `;
